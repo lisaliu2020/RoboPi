@@ -8,6 +8,6 @@ Our goal for this project is to create a robot that recognizes facial expression
 
 ### The Team
 
-**Lisa Liu**: Face Recognition Specialist, Project Head.
-**Lorenzo Galante**: Hardware Engineer, Inventory Manager.
-**Anthony Allwood**: Mobile Applications Developer.
+**Lisa Liu**: Face Recognition Specialist, Project Head. <br>
+**Lorenzo Galante**: Hardware Engineer, Inventory Manager. <br>
+**Anthony Allwood**: Mobile Applications Developer. <br>
