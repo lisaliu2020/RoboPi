@@ -2,17 +2,21 @@ import urllib
 import cv2
 import numpy as np
 import os
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 # store raw images
 def store_raw_imgs():
 	# neg_imgs_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n00523513'
-	neg_imgs_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n00007846'
+	# neg_imgs_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n02123394'
+	neg_imgs_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n02123045'
 	neg_img_urls = urllib.urlopen(neg_imgs_link).read().decode()
+	pic_num = 1180
 
 	if not os.path.exists('neg'):
 		os.makedirs('neg')
-
-	pic_num = 454;
 
 	for i in neg_img_urls.split('\n'):
 		try:
@@ -66,4 +70,4 @@ def create_pos_n_neg():
 
 # store_raw_imgs()
 # find_ugly()
-create_pos_n_neg()
+# create_pos_n_neg()
