@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-smile_cascade = cv2.CascadeClassifier('cascade_2.xml')
+smile_cascade = cv2.CascadeClassifier('smile_cascade.xml')
 
 cap = cv2.VideoCapture(0)
 
@@ -27,7 +27,7 @@ while 1:
 	# 	roi_gray = gray[y:y+h, x:x+w]
 	# 	roi_color = img[y:y+h, x:x+w]
 	# 	# smiles = smile_cascade.detectMultiScale(roi_gray)
-		
+
 	# 	cv2.rectangle(roi_color,(sx,sy),(sx + sw, sy + sh), (0, 0, 255), 2)
 
 
