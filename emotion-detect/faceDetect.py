@@ -1,50 +1,65 @@
 import cv2
 import numpy as np
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-smile_cascade = cv2.CascadeClassifier('haarcascade_smile.xml')
+smile_cascade = cv2.CascadeClassifier('/data/smile_cascade.xml')
 
-cap = cv2.VideoCapture(0)
-cap.set(3,640)
-cap.set(4,480)
+'''
+cameras = []
+for i in range(0,199):
+	cap = cv2.VideoCapture(i)
+	if cap is None or not cap.isOpened():
+        	print('Warning: unable to open video source: ', i)
+	else:
+		valid_cams.append(i)
 
-sF = 1.05
+print(cameras)
+'''
 
-while (True):
+cap = PiCamera()
+rawCap = PiRGBArray(cap)
 
-    ret, frame = cap.read() # Capture frame-by-frame
-    img = frame
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    faces = face_cascade.detectMultiScale(
-        gray,
-        scaleFactor= sF,
-        minNeighbors=8,
-        minSize=(55, 55),
-        flags=cv2.CASCADE_SCALE_IMAGE
-    )
-    # ---- Draw a rectangle around the faces
+#while 1:
+    #ret, img = cap.read()
+   
+for frame in cap.capture_continuous(rawCap, format="bgr", use_video_port=True):
+    # grab the raw NumPy array representing the image, then initialize the timestamp
+    # and occupied/unoccupied text
+    image = frame.array
+   
+    #ret, img = cap.capture(rawCap, format="bgr")
 
-    for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2)
+   
+    img = frame.array
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    '''    
+    # add this
+    # image, reject levels level weights.
+    watches = watch_cascade.detectMultiScale(gray, 50, 50)
+    
+    # add this
+    for (x,y,w,h) in watches:
+        cv2.rectangle(img,(x,y),(x+w,y+h),(255,255,0),2)
+    '''
+    for (x,y,w,h) in faces:
+        cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+
+        
         roi_gray = gray[y:y+h, x:x+w]
-        roi_color = frame[y:y+h, x:x+w]
+        roi_color = img[y:y+h, x:x+w]
+        eyes = eye_cascade.detectMultiScale(roi_gray)
+        for (ex,ey,ew,eh) in eyes:
+            cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
 
-        smile = smile_cascade.detectMultiScale(
-			roi_gray,
-			scaleFactor= 1.7,
-			minNeighbors=22,
-            minSize=(25, 25),
-            flags=cv2.CASCADE_SCALE_IMAGE
-		)
-
-        for (x, y, w, h) in smile:
-            print("Found smile!")
-            cv2.rectangle(roi_color, (x, y), (x+w, y+h), (255, 0, 0), 1)
-
-    cv2.imshow('Smile Detector', frame)
-    c = cv2.waitKey(7) % 0x100
-    if c == 27:
+    cv2.imshow('img',img)
+    k = cv2.waitKey(30) & 0xff
+    if k == 27:
         break
 
 cap.release()

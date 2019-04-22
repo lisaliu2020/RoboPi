@@ -1,19 +1,19 @@
-import urllib
+import urllib.request
 import cv2
 import numpy as np
 import os
 import sys
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+# reload(sys)
+# sys.setdefaultencoding('utf8')
 
 # store raw images
 def store_raw_imgs():
 	# neg_imgs_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n00523513'
 	# neg_imgs_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n02123394'
-	neg_imgs_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n02123045'
-	neg_img_urls = urllib.urlopen(neg_imgs_link).read().decode()
-	pic_num = 1180
+	neg_imgs_link = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n02109961'
+	neg_img_urls = urllib.request.urlopen(neg_imgs_link).read().decode()
+	pic_num = 1961
 
 	if not os.path.exists('neg'):
 		os.makedirs('neg')
@@ -22,7 +22,7 @@ def store_raw_imgs():
 		try:
 			print(i)
 			#save raw img
-			urllib.urlretrieve(i, "neg/"+str(pic_num)+'.jpg')
+			urllib.request.urlretrieve(i, "neg/"+str(pic_num)+'.jpg')
 			#turn to gray scale img
 			img = cv2.imread("neg/"+str(pic_num)+'.jpg', cv2.IMREAD_GRAYSCALE)
 			#resize img to 100 by 100
@@ -70,4 +70,4 @@ def create_pos_n_neg():
 
 # store_raw_imgs()
 # find_ugly()
-# create_pos_n_neg()
+create_pos_n_neg()
