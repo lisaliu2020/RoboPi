@@ -16,19 +16,10 @@ while 1:
 
 		roi_gray = gray[y:y+h, x:x+w]
 		roi_color = img[y:y+h, x:x+w]
-		# smiles = smile_cascade.detectMultiScale(roi_gray)
 		smiles = smile_cascade.detectMultiScale(roi_gray)
 
 		for (sx,sy,sw,sh) in smiles:
 			cv2.rectangle(roi_color,(sx,sy),(sx + sw, sy + sh), (0, 0, 255), 2)
-
-	# smiles = smile_cascade.detectMultiScale(gray, 1.8, 1)
-	# for (x,y,w,h) in smiles:
-	# 	roi_gray = gray[y:y+h, x:x+w]
-	# 	roi_color = img[y:y+h, x:x+w]
-	# 	# smiles = smile_cascade.detectMultiScale(roi_gray)
-
-	# 	cv2.rectangle(roi_color,(sx,sy),(sx + sw, sy + sh), (0, 0, 255), 2)
 
 
 	cv2.imshow('img',img)
