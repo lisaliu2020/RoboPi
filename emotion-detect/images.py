@@ -70,4 +70,4 @@ def create_pos_n_neg():
 
 # store_raw_imgs()
 # find_ugly()
-create_pos_n_neg()
+# create_pos_n_neg()
