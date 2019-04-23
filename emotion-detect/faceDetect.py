@@ -5,7 +5,7 @@ from picamera import PiCamera
 
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-smile_cascade = cv2.CascadeClassifier('/data/smile_cascade.xml')
+smile_cascade = cv2.CascadeClassifier('smile_cascade.xml')
 
 '''
 cameras = []
@@ -25,24 +25,24 @@ rawCap = PiRGBArray(cap)
 
 #while 1:
     #ret, img = cap.read()
-   
+
 for frame in cap.capture_continuous(rawCap, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
-   
+
     #ret, img = cap.capture(rawCap, format="bgr")
 
-   
+
     img = frame.array
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-    '''    
+    '''
     # add this
     # image, reject levels level weights.
     watches = watch_cascade.detectMultiScale(gray, 50, 50)
-    
+
     # add this
     for (x,y,w,h) in watches:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,255,0),2)
@@ -50,7 +50,7 @@ for frame in cap.capture_continuous(rawCap, format="bgr", use_video_port=True):
     for (x,y,w,h) in faces:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
 
-        
+
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = img[y:y+h, x:x+w]
         eyes = eye_cascade.detectMultiScale(roi_gray)
