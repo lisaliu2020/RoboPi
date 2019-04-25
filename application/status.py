@@ -12,11 +12,10 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 #Assign GPIO pins
-happyButton = 17
+happyButton = 26
 sadButton = 27
 
 #Variables
-emotion = " "
 
 #Initialize GPIO
 GPIO.setmode(GPIO.BCM)
@@ -34,20 +33,20 @@ db.commit()
 
 def emotionStatus():
 
-	emotionState = GPIO.input(17)
+	emotionState = GPIO.input(26)
 	emotionStateTwo = GPIO.input(27)
 
 	if emotionState == False:
 		emotion = "Happy"
-		print emotion
-	else:
-		emotion = "Nothing"
 
-	if emotionStateTwo == False:
+
+	elif emotionStateTwo == False:
 		emotion = "Sad"
-		print emotion
+
 	else:
-		emotion = "Nothing"
+		emotion = "No Input"
+
+	return emotion
 
 try:
 
@@ -55,7 +54,22 @@ try:
 
 		emotionStatus()
 		time.sleep(0.1)
-	#END
+
+		status = emotionStatus()
+
+		#Update timestamp
+		timeStamp = (time.strftime("%Y-%m-%d %H:%M:%S"))
+
+		#Inserts into emotionFormat table within database
+		if status == "Happy" or status == "Sad":
+			cursor.execute('''INSERT INTO emotionFormat VALUES(?,?) ''', (timeStamp, status))
+			db.commit()
+			all_rows = cursor.execute('''SELECT * FROM emotionFormat''')
+			os.system('clear')
+			for row in all_rows:
+				print('{0} : {1}'.format(row[0], row[1]))
+
+		#END
 
 
 except KeyboardInterrupt:
