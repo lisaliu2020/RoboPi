@@ -9,9 +9,13 @@ stream = io.BytesIO()
 camera = picamera.PiCamera()
 camera.resolution = (640, 480)
 
+smile = False
+frown = False
+
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 smile_cascade = cv2.CascadeClassifier('smile_cascade.xml')
 smile_closed_cascade = cv2.CascadeClassifier('smile_closed_cascade.xml')
+frown_cascade = cv2.CascadeClassifier('frown_cascade.xml')
 
 while True:
 	camera.capture(stream, format='jpeg', use_video_port = True)
@@ -32,9 +36,18 @@ while True:
 
 		for (sx,sy,sw,sh) in smiles:
 			cv2.rectangle(roi_color,(sx,sy),(sx+sw, sy+sh),(0,0,255),2)
+			smile = True
+			frown = False
 
 		for (sx,sy,sw,sh) in smiles_closed:
 			cv2.rectangle(roi_color,(sx,sy),(sx+sw, sy+sh),(0,0,255),2)
+			smile = True
+			frown = False
+
+		for (sx,sy,sw,sh) in frowns:
+			cv2.rectangle(roi_color,(sx,sy),(sx + sw, sy + sh), (0, 255, 0), 2)
+			frown = True
+			smile = False
 
 	cv2.imshow('img', img)
 
