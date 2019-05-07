@@ -1,23 +1,47 @@
-<!doctype html>
-<html lang = "en">
+<!DOCTYPE html>
 
 	<head>
 		<!-- Required meta tags -->
-
+		
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 		<title> ROBO PI APPLICATION </title>
-
-	</head>
-
-	
-	<script>
 		
-
-	</script>
-
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	</head>
+	
 	<body>
+		
+		<script type="text/javascript">
+			google.charts.load('current', { packages :['table'] });
+			google.charts.setOnLoadCallback(drawTable);
 
+			function drawTable()
+			{
+				var timeStamp = {{ timeStamp }}
+				var data = new google.visualization.DataTable();
+				data.addColumn('string', 'Timestamps');
+				data.addColumn('string', 'Emotion');
+				for(i = 0; i < timeStamp.length; i++)
+				{
+					data.addRow([
+						timeStamp[i], status[i]
+					]);
+				}
 
+				var table = new google.visualization.Table(document.getElementById('emotion_div'));
+
+				table.draw(data);
+			}
+		</script>
+
+		<h3 style="text-align: center"> Timestamps ==> {{ timeStamp }} </h3>
+		<h3 style="text-align: center"> Emotions ==> {{ status }} </h3>
+
+		<div id="emotion_div"></div>
+		
+		
 	</body>
 
 </html>
