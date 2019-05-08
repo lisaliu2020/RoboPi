@@ -3,11 +3,13 @@
 	<head>
 		<!-- Required meta tags -->
 		
-		<meta charset="UTF-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
 
 		<title> ROBO PI APPLICATION </title>
-		
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>		
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	</head>
 	
@@ -16,24 +18,46 @@
 		<script type="text/javascript">
 			google.charts.load('current', { packages :['table'] });
 			google.charts.setOnLoadCallback(drawTable);
+			
+			var tableData = [];			
 
+			function getJsonData()
+			{
+				tableData = [];
+				
+				$.getJSON('/tableData', function(tableInfo)
+				{
+					for(i = 0; i < tableInfo.length; i++)
+					{
+						tableData.push([tableInfo[i].timeStamp, tableInfo[i].status]);
+					};
+
+					drawTable();
+				});
+				
+			}
+			
 			function drawTable()
 			{
-				var timeStamp = {{ timeStamp }}
 				var data = new google.visualization.DataTable();
 				data.addColumn('string', 'Timestamps');
-				data.addColumn('string', 'Emotion');
-				for(i = 0; i < timeStamp.length; i++)
+				data.addColumn('string', 'Emotions');
+				data.addRows([
+					[tableData[0], tableData[0]]
+				]);
+
+				var options =
 				{
-					data.addRow([
-						timeStamp[i], status[i]
-					]);
-				}
+					title: 'How Are You Feeling',
+					'width': '100%',
+					'height': '100%'
+				};
 
 				var table = new google.visualization.Table(document.getElementById('emotion_div'));
 
-				table.draw(data);
+				table.draw(data, options);
 			}
+
 		</script>
 
 		<h3 style="text-align: center"> Timestamps ==> {{ timeStamp }} </h3>

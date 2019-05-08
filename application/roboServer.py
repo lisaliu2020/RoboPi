@@ -1,11 +1,11 @@
 
 #!/usr/bin/python
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response, jsonify
 app = Flask(__name__)
 
 import sqlite3
-
+import json
 
 #Retrieve the data from the database
 
@@ -22,30 +22,24 @@ def getData():
 
 	return timeStamp, status
 
+@app.route("/tableData")
 def getChartData():
+	con.row_factory = sqlite3.Row
 	cursor.execute("SELECT * FROM emotionFormat")
 	data = cursor.fetchall()
 
-	timeStamps = []
-	statuses = []
+	tableInfo = []
 
+	for row in data:
+		tableInfo.append({"timeStamp": row[0], "status": row[1]})
 
-	for row in reversed(data):
-		timeStamps.append(row[0])
-		statuses.append(row[1])
-
-	return timeStamps, statuses
+	return Response(json.dumps(tableInfo), mimetype='application/json')
 
 #Main route
 @app.route("/")
 def index():
-	timeStamp, status = getChartData()
-	templateData = {
-		'timeStamp': timeStamp,
-		'status': status
-	}
 
-	return render_template('index.html', **templateData)
+	return render_template('index.html')
 
 
 if __name__ == "__main__":
