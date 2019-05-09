@@ -1,31 +1,58 @@
-# import the necessary packages
-from picamera.array import PiRGBArray
-from picamera import PiCamera
-import time
+import picamera
+import picamera.array
+import numpy as np
 import cv2
- 
-# initialize the camera and grab a reference to the raw camera capture
-camera = PiCamera()
+import time
+import io
+
+stream = io.BytesIO()
+camera = picamera.PiCamera()
 camera.resolution = (640, 480)
-camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(640, 480))
- 
-# allow the camera to warmup
-time.sleep(0.1)
- 
-# capture frames from the camera
-for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-	# grab the raw NumPy array representing the image, then initialize the timestamp
-	# and occupied/unoccupied text
-	image = frame.array
- 
-	# show the frame
-	cv2.imshow("Frame", image)
-	key = cv2.waitKey(1) & 0xFF
- 
-	# clear the stream in preparation for the next frame
-	rawCapture.truncate(0)
- 
-	# if the `q` key was pressed, break from the loop
+
+smile = False
+frown = False
+
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+smile_cascade = cv2.CascadeClassifier('smile_cascade.xml')
+smile_closed_cascade = cv2.CascadeClassifier('smile_closed_cascade.xml')
+frown_cascade = cv2.CascadeClassifier('frown_cascade.xml')
+
+while True:
+	camera.capture(stream, format='jpeg', use_video_port = True)
+	img = np.fromstring(stream.getvalue(), dtype=np.uint8)
+	stream.seek(0)
+
+	img = cv2.imdecode(img, 1)
+	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+
+	for (x,y,w,h) in faces:
+		cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+
+		roi_gray = gray[y:y+h, x:x+w]
+		roi_color = img[y:y+h, x:x+w]
+		smiles = smile_cascade.detectMultiScale(roi_gray)
+		smiles_closed = smile_closed_cascade.detectMultiScale(roi_gray)
+
+		for (sx,sy,sw,sh) in smiles:
+			cv2.rectangle(roi_color,(sx,sy),(sx+sw, sy+sh),(0,0,255),2)
+			smile = True
+			frown = False
+
+		for (sx,sy,sw,sh) in smiles_closed:
+			cv2.rectangle(roi_color,(sx,sy),(sx+sw, sy+sh),(0,0,255),2)
+			smile = True
+			frown = False
+
+		for (sx,sy,sw,sh) in frowns:
+			cv2.rectangle(roi_color,(sx,sy),(sx + sw, sy + sh), (0, 255, 0), 2)
+			frown = True
+			smile = False
+
+	cv2.imshow('img', img)
+
+	key = cv2.waitKey(1) & 0xff
 	if key == ord("q"):
 		break
+
+cv2.destroyAllWindows()
