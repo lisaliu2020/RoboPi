@@ -13,7 +13,7 @@
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	</head>
 	
-	<body>
+	<body onload="getJsonData()">
 		
 		<script type="text/javascript">
 			google.charts.load('current', { packages :['table'] });
@@ -26,12 +26,14 @@
 				tableData = [];
 				
 				$.getJSON('/tableData', function(tableInfo)
+				
 				{
+					console.log(tableInfo);
 					for(i = 0; i < tableInfo.length; i++)
 					{
-						tableData.push([tableInfo[i].timeStamp, tableInfo[i].status]);
+						tableData.push([new Date(tableInfo[i].timeStamp), tableInfo[i].status]);
 					};
-
+				console.log(tableData);
 					drawTable();
 				});
 				
@@ -40,11 +42,9 @@
 			function drawTable()
 			{
 				var data = new google.visualization.DataTable();
-				data.addColumn('string', 'Timestamps');
+				data.addColumn('datetime', 'Timestamps');
 				data.addColumn('string', 'Emotions');
-				data.addRows([
-					[tableData[0], tableData[0]]
-				]);
+				data.addRows(tableData);
 
 				var options =
 				{

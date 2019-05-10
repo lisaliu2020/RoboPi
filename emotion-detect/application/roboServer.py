@@ -19,11 +19,12 @@ def getData():
 		status = row[1]
 
 	con.close()
-
+	
 	return timeStamp, status
 
 @app.route("/tableData")
 def getChartData():
+	print ("tableData called")
 	con.row_factory = sqlite3.Row
 	cursor.execute("SELECT * FROM emotionFormat")
 	data = cursor.fetchall()
@@ -32,7 +33,8 @@ def getChartData():
 
 	for row in data:
 		tableInfo.append({"timeStamp": row[0], "status": row[1]})
-
+	print(tableInfo)
+	
 	return Response(json.dumps(tableInfo), mimetype='application/json')
 
 #Main route
