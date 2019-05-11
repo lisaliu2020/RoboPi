@@ -63,11 +63,13 @@ def piCamera():
 			frown = True
 			smile = False
 
-	cv2.imshow('img', img)
+		cv2.imshow('img', img)
 
-	key = cv2.waitKey(1) & 0xff
-	if key == ord("q"):
-		break
+		key = cv2.waitKey(1) & 0xff
+		if key == ord("q"):
+			break
+
+		cv2.destroyAllWindows()
 
 	if smile == True:
 		cam_emotion = "Smile"
@@ -77,8 +79,6 @@ def piCamera():
 
 	else:
 		cam_emotion = "None"
-
-	cv2.destroyAllWindows()
 
 	return cam_emotion
 
