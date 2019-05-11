@@ -9,6 +9,7 @@ import time
 import io
 
 #Additional libraries for database logging and buttons
+import RPi.GPIO as GPIO
 import os
 import sqlite3
 import sys
