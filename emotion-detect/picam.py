@@ -124,7 +124,7 @@ try:
 
 		piCamera()
 
-		emoitonStatus()
+		emotionStatus()
 		time.sleep(0.1)
 
 		cam_status = piCamera()
