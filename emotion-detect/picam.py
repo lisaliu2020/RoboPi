@@ -41,6 +41,9 @@ def piCamera():
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
+	global smile
+	global frown
+
 	for (x,y,w,h) in faces:
 		cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
 
@@ -127,6 +130,7 @@ try:
 		emotionStatus()
 		time.sleep(0.1)
 
+		robo_status = "dkadasg"
 		cam_status = piCamera()
 
 		status = emotionStatus()
