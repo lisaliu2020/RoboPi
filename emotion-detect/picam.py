@@ -72,16 +72,16 @@ def piCamera():
 
 		cv2.destroyAllWindows()
 
-	if smile == True:
-		cam_emotion = "Smile"
+		if smile == True:
+			cam_emotion = "Smile"
 
-	elif frown == True:
-		cam_emotion = "Frown"
+		elif frown == True:
+			cam_emotion = "Frown"
 
-	else:
-		cam_emotion = "None"
+		else:
+			cam_emotion = "None"
 
-	return cam_emotion
+		return cam_emotion
 
 #------------------------------------------------------------------------------------------
 #Assign GPIO pins
