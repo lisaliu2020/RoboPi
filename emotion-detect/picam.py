@@ -51,6 +51,7 @@ def piCamera():
 		roi_color = img[y:y+h, x:x+w]
 		smiles = smile_cascade.detectMultiScale(roi_gray)
 		smiles_closed = smile_closed_cascade.detectMultiScale(roi_gray)
+		frowns = frown_cascade.detectMultiScale(roi_gray)
 
 		for (sx,sy,sw,sh) in smiles:
 			cv2.rectangle(roi_color,(sx,sy),(sx+sw, sy+sh),(0,0,255),2)
