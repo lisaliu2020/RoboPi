@@ -25,6 +25,7 @@ camera.resolution = (640, 480)
 
 smile = False
 frown = False
+cam_status = "words"
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 smile_cascade = cv2.CascadeClassifier('smile_cascade.xml')
@@ -33,10 +34,51 @@ frown_cascade = cv2.CascadeClassifier('frown_cascade.xml')
 
 #PiCamera function
 def piCamera():
-	camera.capture(stream, format='jpeg', use_video_port = True)
-	img = np.fromstring(stream.getvalue(), dtype=np.uint8)
-	stream.seek(0)
+	flag = False
+	while flag != True:
+		camera.capture(stream, format='jpeg', use_video_port = True)
+		img = np.fromstring(stream.getvalue(), dtype=np.uint8)
+		stream.seek(0)
 
+		img = cv2.imdecode(img, 1)
+		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+
+		global smile
+		global frown
+		global cam_status
+
+		for (x,y,w,h) in faces:
+			cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+
+			roi_gray = gray[y:y+h, x:x+w]
+			roi_color = img[y:y+h, x:x+w]
+			smiles = smile_cascade.detectMultiScale(roi_gray)
+			smiles_closed = smile_closed_cascade.detectMultiScale(roi_gray)
+			frowns = frown_cascade.detectMultiScale(roi_gray)
+
+			for (sx,sy,sw,sh) in smiles:
+				cv2.rectangle(roi_color,(sx,sy),(sx+sw, sy+sh),(0,0,255),2)
+				smile = True
+				frown = False
+				flag = True
+
+			for (sx,sy,sw,sh) in smiles_closed:
+				cv2.rectangle(roi_color,(sx,sy),(sx+sw, sy+sh),(0,0,255),2)
+				smile = True
+				frown = False
+				flag = True
+
+			for (sx,sy,sw,sh) in frowns:
+				cv2.rectangle(roi_color,(sx,sy),(sx + sw, sy + sh), (0, 255, 0), 2)
+				frown = True
+				smile = False
+				flag = True
+
+<<<<<<< HEAD
+		if smile == True:
+			cam_status = "Smile"
+=======
 	img = cv2.imdecode(img, 1)
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	faces = face_cascade.detectMultiScale(gray, 1.3, 5)
@@ -52,21 +94,14 @@ def piCamera():
 		smiles = smile_cascade.detectMultiScale(roi_gray)
 		smiles_closed = smile_closed_cascade.detectMultiScale(roi_gray)
 		frowns = frown_cascade.detectMultiScale(roi_gray)
+>>>>>>> 568d97378892e59892fb5c0029a444cbf527ce18
 
-		for (sx,sy,sw,sh) in smiles:
-			cv2.rectangle(roi_color,(sx,sy),(sx+sw, sy+sh),(0,0,255),2)
-			smile = True
-			frown = False
+		elif frown == True:
+			cam_status = "Frown"
 
-		for (sx,sy,sw,sh) in smiles_closed:
-			cv2.rectangle(roi_color,(sx,sy),(sx+sw, sy+sh),(0,0,255),2)
-			smile = True
-			frown = False
+		else:
+			cam_status = "None"
 
-		for (sx,sy,sw,sh) in frowns:
-			cv2.rectangle(roi_color,(sx,sy),(sx + sw, sy + sh), (0, 255, 0), 2)
-			frown = True
-			smile = False
 
 		cv2.imshow('img', img)
 
@@ -74,18 +109,7 @@ def piCamera():
 		if key == ord("q"):
 			break
 
-		cv2.destroyAllWindows()
-
-		if smile == True:
-			cam_emotion = "Smile"
-
-		elif frown == True:
-			cam_emotion = "Frown"
-
-		else:
-			cam_emotion = "None"
-
-		return cam_emotion
+	cv2.destroyAllWindows()
 
 #------------------------------------------------------------------------------------------
 #Assign GPIO pins
@@ -131,8 +155,12 @@ try:
 		emotionStatus()
 		time.sleep(0.1)
 
+<<<<<<< HEAD
+		robo_status = "dshajk"
+=======
 		robo_status = "dkadasg"
 		cam_status = piCamera()
+>>>>>>> 568d97378892e59892fb5c0029a444cbf527ce18
 
 		status = emotionStatus()
 
