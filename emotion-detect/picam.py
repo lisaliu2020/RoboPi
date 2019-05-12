@@ -75,10 +75,9 @@ def piCamera():
 				smile = False
 				flag = True
 
-<<<<<<< HEAD
 		if smile == True:
 			cam_status = "Smile"
-=======
+
 	img = cv2.imdecode(img, 1)
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	faces = face_cascade.detectMultiScale(gray, 1.3, 5)
@@ -94,7 +93,9 @@ def piCamera():
 		smiles = smile_cascade.detectMultiScale(roi_gray)
 		smiles_closed = smile_closed_cascade.detectMultiScale(roi_gray)
 		frowns = frown_cascade.detectMultiScale(roi_gray)
->>>>>>> 568d97378892e59892fb5c0029a444cbf527ce18
+
+		if smile == True:
+			cam_status = "Smile"
 
 		elif frown == True:
 			cam_status = "Frown"
@@ -155,12 +156,7 @@ try:
 		emotionStatus()
 		time.sleep(0.1)
 
-<<<<<<< HEAD
 		robo_status = "dshajk"
-=======
-		robo_status = "dkadasg"
-		cam_status = piCamera()
->>>>>>> 568d97378892e59892fb5c0029a444cbf527ce18
 
 		status = emotionStatus()
 
