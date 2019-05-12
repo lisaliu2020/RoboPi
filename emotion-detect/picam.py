@@ -69,11 +69,11 @@ def piCamera():
 				frown = False
 				flag = True
 
-			for (sx,sy,sw,sh) in frowns:
-				cv2.rectangle(roi_color,(sx,sy),(sx + sw, sy + sh), (0, 255, 0), 2)
-				frown = True
-				smile = False
-				flag = True
+#			for (sx,sy,sw,sh) in frowns:
+#				cv2.rectangle(roi_color,(sx,sy),(sx + sw, sy + sh), (0, 255, 0), 2)
+#				frown = True
+#				smile = False
+#				flag = True
 
 		if smile == True:
 			cam_status = "Smile"
