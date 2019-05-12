@@ -9,32 +9,34 @@ import json
 
 #Retrieve the data from the database
 
-con = sqlite3.connect('./log/emotionStatus.db')
+con = sqlite3.connect('./log/detectStatus.db')
 cursor = con.cursor()
 
 def getData():
 
-	for row in cursor.execute("SELECT * FROM emotionFormat ORDER BY timestamp DESC LIMIT 1"):
+	for row in cursor.execute("SELECT * FROM detectFormat ORDER BY timestamp DESC LIMIT 1"):
 		timeStamp = str(row[0])
-		status = row[1]
+		cam_status = row[1]
+		status = row[2]
+		robo_status = row[3]
 
 	con.close()
-	
-	return timeStamp, status
+
+	return timeStamp, cam_status, status, robo_status
 
 @app.route("/tableData")
 def getChartData():
 	print ("tableData called")
 	con.row_factory = sqlite3.Row
-	cursor.execute("SELECT * FROM emotionFormat")
+	cursor.execute("SELECT * FROM detectFormat")
 	data = cursor.fetchall()
 
 	tableInfo = []
 
 	for row in data:
-		tableInfo.append({"timeStamp": row[0], "status": row[1]})
+		tableInfo.append({"timeStamp": row[0], "cam_status": row[1], "status": row[2], "robo_status": row[3]})
 	print(tableInfo)
-	
+
 	return Response(json.dumps(tableInfo), mimetype='application/json')
 
 #Main route
