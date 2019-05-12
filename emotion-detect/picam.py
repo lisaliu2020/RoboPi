@@ -46,6 +46,7 @@ def piCamera():
 
 		global smile
 		global frown
+		global cam_status
 
 		for (x,y,w,h) in faces:
 			cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
@@ -111,18 +112,22 @@ db.commit()
 
 
 def emotionStatus():
+	flag = False
 
-	emotionState = GPIO.input(26)
-	emotionStateTwo = GPIO.input(27)
+	while flag != True:
+		emotionState = GPIO.input(26)
+		emotionStateTwo = GPIO.input(27)
 
-	if emotionState == False:
-		emotion = "Happy"
+		if emotionState == False:
+			emotion = "Happy"
+			flag = True
 
-	elif emotionStateTwo == False:
-		emotion = "Sad"
+		elif emotionStateTwo == False:
+			emotion = "Sad"
+			flag = True
 
-	else:
-		emotion = "No Input"
+		else:
+			emotion = "No Input"
 
 	return emotion
 
@@ -130,30 +135,27 @@ def emotionStatus():
 try:
 
 	while True:
-
 		piCamera()
 
-		emotionStatus()
-		time.sleep(0.1)
-
-		robo_status = "dshajk"
+		print(cam_status)
 
 		status = emotionStatus()
+		print(status)
 
 		if cam_status == "Smile" and status == "Happy":
-			robo_status == "True"
+			robo_status = "True"
 
 		elif cam_status == "Smile" and status == "Sad":
-			robo_status == "False"
+			robo_status = "False"
 
 		elif cam_status == "Frown" and status == "Sad":
-			robo_status == "True"
+			robo_status = "True"
 
 		elif cam_status == "Frown" and status == "Happy":
-			robo_status == "False"
+			robo_status = "False"
 
 		else:
-			robo_status == "None"
+			robo_status = "None"
 
 
 		#Update timeStamp
@@ -169,9 +171,11 @@ try:
 			for row in all_rows:
 				print('{0} : {1} : {2} : {3}'.format(row[0], row[1], row[2], row[3]))
 
+		time.sleep(10)
 		#END
 
 except KeyboardInterrupt:
 	os.system('clear')
+	db.close()
 	print('Your emotion has been recorded')
 	GPIO.cleanup()
