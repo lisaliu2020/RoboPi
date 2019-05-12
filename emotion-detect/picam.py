@@ -74,25 +74,6 @@ def piCamera():
 		if smile == True:
 			cam_status = "Smile"
 
-	img = cv2.imdecode(img, 1)
-	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-
-	global smile
-	global frown
-
-	for (x,y,w,h) in faces:
-		cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
-
-		roi_gray = gray[y:y+h, x:x+w]
-		roi_color = img[y:y+h, x:x+w]
-		smiles = smile_cascade.detectMultiScale(roi_gray)
-		smiles_closed = smile_closed_cascade.detectMultiScale(roi_gray)
-		frowns = frown_cascade.detectMultiScale(roi_gray)
-
-		if smile == True:
-			cam_status = "Smile"
-
 		elif frown == True:
 			cam_status = "Frown"
 
