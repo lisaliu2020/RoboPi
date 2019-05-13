@@ -7,7 +7,7 @@ import time
 import io
 
 #Python image opener library
-import Image
+from PIL import Image
 
 #Additional libraries for database logging and buttons
 import RPi.GPIO as GPIO
@@ -141,8 +141,7 @@ def emotionStatus():
 			emotion = "Happy"
 			#Show smile
 			try:
-				img = Image.open('smile_emoji.jpg')
-				img.show()
+				Image.open('smile_emoji.jpg').show()
 			except IOError:
 				pass
 			flag = True
@@ -151,8 +150,7 @@ def emotionStatus():
 			emotion = "Sad"
 			#Show frown
 			try:
-				img = Image.open('frown_emoji.jpg')
-				img.show()
+				Image.open('frown_emoji.jpg').show()
 			except IOError:
 				pass
 			flag = True
