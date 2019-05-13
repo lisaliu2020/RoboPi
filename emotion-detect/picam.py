@@ -123,6 +123,11 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(happyButton, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(sadButton, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+#Create Window and images
+cv2.namedWindow('image', cv2.WINDOW_AUTOSIZE)
+imgSmile = cv2.imread('smile_emoji.jpg',1)
+imgFrown = cv2.imread('frown_emjoi.jpg',1)
+
 #SQLite Setup
 db = sqlite3.connect('./application/log/detectStatus.db')
 cursor = db.cursor()
@@ -139,20 +144,12 @@ def emotionStatus():
 
 		if emotionState == False:
 			emotion = "Happy"
-			#Show smile
-			try:
-				Image.open('smile_emoji.jpg').show()
-			except IOError:
-				pass
+			cv2.imshow('image', imgSmile)
 			flag = True
 
 		elif emotionStateTwo == False:
 			emotion = "Sad"
-			#Show frown
-			try:
-				Image.open('frown_emoji.jpg').show()
-			except IOError:
-				pass
+			cv2.imshow('image', imgFrown)
 			flag = True
 
 		else:
