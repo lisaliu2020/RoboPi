@@ -111,7 +111,7 @@ def piCamera():
 		if key == ord("q"):
 			break
 
-	cv2.destroyAllWindows()
+		cv2.destroyAllWindows()
 
 #------------------------------------------------------------------------------------------
 
