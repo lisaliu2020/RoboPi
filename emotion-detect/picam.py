@@ -170,22 +170,18 @@ try:
 		if cam_status == "Smile" and status == "Happy":
 			robo_status = "True"
 			cv2.imshow('image', imgSmile)
-			time.sleep(5)
 
 		elif cam_status == "Smile" and status == "Sad":
 			robo_status = "False"
 			cv2.imshow('image', imgFrown)
-			time.sleep(5)
 
 		elif cam_status == "Frown" and status == "Sad":
 			robo_status = "True"
 			cv2.imshow('image', imgFrown)
-			time.sleep(5)
 
 		elif cam_status == "Frown" and status == "Happy":
 			robo_status = "False"
 			cv2.imshow('image', imgSmile)
-			time.sleep(5)
 
 		else:
 			robo_status = "None"
