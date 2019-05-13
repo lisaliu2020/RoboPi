@@ -141,7 +141,7 @@ def emotionStatus():
 			emotion = "Happy"
 			#Show smile
 			try:
-				img = Image.open("smile_emoji.jpg")
+				img = Image.open('./smile_emoji.jpg')
 				img.show()
 			except IOError:
 				pass
@@ -151,7 +151,7 @@ def emotionStatus():
 			emotion = "Sad"
 			#Show frown
 			try:
-				img = Image.open("frown_emoji.jpg")
+				img = Image.open('./frown_emoji.jpg')
 				img.show()
 			except IOError:
 				pass
