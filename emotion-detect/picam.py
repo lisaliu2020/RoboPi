@@ -144,12 +144,10 @@ def emotionStatus():
 
 		if emotionState == False:
 			emotion = "Happy"
-			cv2.imshow('image', imgSmile)
 			flag = True
 
 		elif emotionStateTwo == False:
 			emotion = "Sad"
-			cv2.imshow('image', imgFrown)
 			flag = True
 
 		else:
@@ -167,6 +165,14 @@ try:
 
 		status = emotionStatus()
 		print(status)
+
+		if status == "Happy":
+			cv2.imshow('image', imgSmile)
+			time.sleep(5)
+
+		if status == "Sad":
+			cv2.imshow('image', imgFrown)
+			time.sleep(5)
 
 		if cam_status == "Smile" and status == "Happy":
 			robo_status = "True"
@@ -197,6 +203,7 @@ try:
 			for row in all_rows:
 				print('{0} : {1} : {2} : {3}'.format(row[0], row[1], row[2], row[3]))
 
+		cv2.destroyAllWindows()
 		time.sleep(10)
 		#END
 
