@@ -1,6 +1,8 @@
 # Emotion Detector
 
-Using OpenCV and Python Lisa will be creating haarcascades for smile and frown detection. Anthony will create the web application using flask ... //anthony do this.
+Using OpenCV and Python Lisa will be creating haarcascades for smile and frown detection.
+
+Anthony will create the web application using flask ... //anthony do this.
 
 ##Haarcascades
 
