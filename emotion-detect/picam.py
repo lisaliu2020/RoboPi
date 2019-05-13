@@ -30,7 +30,7 @@ cam_status = "words"
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 smile_cascade = cv2.CascadeClassifier('smile_cascade.xml')
 smile_closed_cascade = cv2.CascadeClassifier('smile_closed_cascade.xml')
-frown_cascade = cv2.CascadeClassifier('cascade.xml')
+frown_cascade = cv2.CascadeClassifier('sad.xml')
 
 #PiCamera function
 def piCamera():
