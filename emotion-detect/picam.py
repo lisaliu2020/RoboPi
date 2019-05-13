@@ -142,6 +142,7 @@ def emotionStatus():
 			#Show smile
 			try:
 				img = Image.open("smile_emoji.jpg")
+				img.show()
 			except IOError:
 				pass
 			flag = True
@@ -151,6 +152,7 @@ def emotionStatus():
 			#Show frown
 			try:
 				img = Image.open("frown_emoji.jpg")
+				img.show()
 			except IOError:
 				pass
 			flag = True
