@@ -6,6 +6,9 @@ import cv2
 import time
 import io
 
+#Python image opener library
+from PIL import Image
+
 #Additional libraries for database logging and buttons
 import RPi.GPIO as GPIO
 import os
@@ -136,10 +139,20 @@ def emotionStatus():
 
 		if emotionState == False:
 			emotion = "Happy"
+			#Show smile
+			try:
+				img = Image.open("smile_emoji.jpg")
+			except IOError:
+				pass
 			flag = True
 
 		elif emotionStateTwo == False:
 			emotion = "Sad"
+			#Show frown
+			try:
+				img = Image.open("frown_emoji.jpg")
+			except IOError:
+				pass
 			flag = True
 
 		else:
