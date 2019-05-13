@@ -127,7 +127,7 @@ GPIO.setup(sadButton, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 #Create Window and images
 cv2.namedWindow('image', cv2.WINDOW_AUTOSIZE)
 imgSmile = cv2.imread('smile_emoji.jpg',1)
-imgFrown = cv2.imread('frown_emjoi.jpg',1)
+imgFrown = cv2.imread('frown_emoji.jpg',1)
 
 #SQLite Setup
 db = sqlite3.connect('./application/log/detectStatus.db')
