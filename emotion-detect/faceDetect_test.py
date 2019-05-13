@@ -4,7 +4,7 @@ import cv2
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 smile_cascade = cv2.CascadeClassifier('smile_cascade.xml')
 smile_close_cascade = cv2.CascadeClassifier('smile_closed_cascade.xml')
-frown_cascade = cv2.CascadeClassifier('cascade.xml')
+frown_cascade = cv2.CascadeClassifier('sad.xml')
 
 cap = cv2.VideoCapture(0)
 
