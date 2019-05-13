@@ -22,7 +22,8 @@ app = Flask(__name__)
 #Variables for picamera
 stream = io.BytesIO()
 camera = picamera.PiCamera()
-camera.resolution = (640, 480)
+# camera.resolution = (640, 480)
+camera.resolution = (300, 300)
 
 #boolean variables for smiles and frowns
 smile = False
@@ -203,7 +204,6 @@ try:
 			for row in all_rows:
 				print('{0} : {1} : {2} : {3}'.format(row[0], row[1], row[2], row[3]))
 
-		time.sleep(10)
 		#END
 
 except KeyboardInterrupt:
