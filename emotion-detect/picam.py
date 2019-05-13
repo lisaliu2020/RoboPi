@@ -166,25 +166,25 @@ try:
 		status = emotionStatus()
 		print(status)
 
-		if status == "Happy":
+		if cam_status == "Smile" and status == "Happy":
+			robo_status = "True"
 			cv2.imshow('image', imgSmile)
 			time.sleep(5)
 
-		if status == "Sad":
+		elif cam_status == "Smile" and status == "Sad":
+			robo_status = "False"
 			cv2.imshow('image', imgFrown)
 			time.sleep(5)
 
-		if cam_status == "Smile" and status == "Happy":
-			robo_status = "True"
-
-		elif cam_status == "Smile" and status == "Sad":
-			robo_status = "False"
-
 		elif cam_status == "Frown" and status == "Sad":
 			robo_status = "True"
+			cv2.imshow('image', imgFrown)
+			time.sleep(5)
 
 		elif cam_status == "Frown" and status == "Happy":
 			robo_status = "False"
+			cv2.imshow('image', imgSmile)
+			time.sleep(5)
 
 		else:
 			robo_status = "None"
@@ -203,7 +203,6 @@ try:
 			for row in all_rows:
 				print('{0} : {1} : {2} : {3}'.format(row[0], row[1], row[2], row[3]))
 
-		cv2.destroyAllWindows()
 		time.sleep(10)
 		#END
 
