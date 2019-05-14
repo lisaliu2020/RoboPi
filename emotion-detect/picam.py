@@ -19,6 +19,24 @@ import sys
 from flask import Flask, render_template
 app = Flask(__name__)
 
+#pigpio and related libs
+import pigpio
+import time
+
+#set control pin
+ServoCtrl = 4
+
+#initialize pigpio
+
+
+pi = pigpio.pi()
+
+if not pi.connected:
+	exit()
+
+pi.set_PWM_frequency(ServoCtrl, 300)
+pi.set_servo_pulsewidth(ServoCtrl, 1485)
+
 #Variables for picamera
 stream = io.BytesIO()
 camera = picamera.PiCamera()
@@ -170,19 +188,38 @@ try:
 		if cam_status == "Smile" and status == "Happy":
 			robo_status = "True"
 			cv2.imshow('image', imgSmile)
+			pi.set_servo_pulsewidth(ServoCtrl, 1000)
+			time.sleep(0.25)
+			pi.set_servo_pulsewidth(ServoCtrl, 2000)
+			time.sleep(0.25)
+			pi.set_servo_pulsewidth(ServoCtrl, 1485)
 
 		elif cam_status == "Smile" and status == "Sad":
 			robo_status = "False"
 			cv2.imshow('image', imgFrown)
+			pi.set_servo_pulsewidth(ServoCtrl, 1000)
+			time.sleep(0.25)
+			pi.set_servo_pulsewidth(ServoCtrl, 2000)
+			time.sleep(0.25)
+			pi.set_servo_pulsewidth(ServoCtrl, 1485)
 
 		elif cam_status == "Frown" and status == "Sad":
 			robo_status = "True"
 			cv2.imshow('image', imgFrown)
+			pi.set_servo_pulsewidth(ServoCtrl, 1000)
+			time.sleep(0.25)
+			pi.set_servo_pulsewidth(ServoCtrl, 2000)
+			time.sleep(0.25)
+			pi.set_servo_pulsewidth(ServoCtrl, 1485)
 
 		elif cam_status == "Frown" and status == "Happy":
 			robo_status = "False"
 			cv2.imshow('image', imgSmile)
-
+			pi.set_servo_pulsewidth(ServoCtrl, 1000)
+			time.sleep(0.25)
+			pi.set_servo_pulsewidth(ServoCtrl, 2000)
+			time.sleep(0.25)
+			pi.set_servo_pulsewidth(ServoCtrl, 1485)
 		else:
 			robo_status = "None"
 
@@ -207,3 +244,4 @@ except KeyboardInterrupt:
 	db.close()
 	print('Your emotion has been recorded')
 	GPIO.cleanup()
+	pi.stop()
