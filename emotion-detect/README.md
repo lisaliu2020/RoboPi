@@ -18,7 +18,7 @@ nohup.out -> output file while training cascades
 
 ##Python Files
 
-picam.py -> python file to be able to collect information from the picamera using created cascades
+picam.py -> python file to be able to collect information from the picamera using our created cascades and two buttons which will then log the information to our database which will be shown on our web application *[look at Web Application section]*
 
 faceDetect_test.py -> python file to test cascades on webcam camera
 
@@ -44,6 +44,8 @@ frown5050.jpg | frownB.jpg | sad.jpg -> frown positive images to train with
 
 smile.jpg | smile3.jpg | smile5050.jpg -> smile positive images to train with
 
-##Web Application
+smile_emoji.jpg | frown_emoji.jpg -> smile emoji will show when the button is clicked to show that
+
+#Web Application
 
 application -> //anthony do this
