@@ -11,6 +11,8 @@
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>		
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+			
 	</head>
 	
 	<body onload="getJsonData()">
@@ -62,10 +64,18 @@
 
 		</script>
 
-		<h3 style="text-align: center"> Timestamps ==> {{ timeStamp }} </h3>
-		<h3 style="text-align: center"> Emotions ==> {{ status }} </h3>
 
-		<div id="emotion_div"></div>
+		<div class= "container-fluid">
+			<p style="text-align: center; font-family:impact; font-size: 40px; font-style:bold; margin: 30"> ROBO PI </p>
+
+			<p style="text-align: center; font-family:impact; font-size: 25px;"> By Lisa Liu, Anthony Allwood, & Lorenzo Galante </p>
+		</div>
+
+		<div class= "container-fluid">
+			<p style="text-align: center; font-family:impact; font-size:40px; padding-top:30px"> HOW ARE YOU FEELING? </p>
+
+			<div id="emotion_div"></div>
+		</div>
 		
 		
 	</body>

@@ -2,7 +2,7 @@
 
 Using OpenCV and Python Lisa will be creating haarcascades for smile and frown detection.
 
-Anthony will create the web application using flask ... //anthony do this.
+Anthony will create the web application for displaying the logged information/variables from the sqlite database table using flask server and google visualization chart.
 
 ##Haarcascades
 
@@ -32,7 +32,7 @@ neg -> negative images for training
 
 sad | smiles -> positive images for training
 
-ugly -> to remove unnecessary images from negative images
+ugly -> to remove unnecessary images from negative images	
 
 bg.txt -> negative images text file
 
@@ -48,4 +48,10 @@ smile_emoji.jpg | frown_emoji.jpg -> smile emoji will show when the button is cl
 
 #Web Application
 
-application -> //anthony do this
+application/log -> contains the database file for the sqlite table 
+
+application/templates -> contains the index.html file for web server. This is the webserver directory index
+
+application/roboServer.py -> This is the flask webserver file that is responsible for fetching information from the database table and transmitting data to the index.html by utilizing json
+
+
