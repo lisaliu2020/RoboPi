@@ -53,3 +53,19 @@ Anthony will create the web application for displaying the logged information/va
 **application/templates** -> contains the index.html file for web server. This is the webserver directory index
 
 **application/roboServer.py** -> This is the flask webserver file that is responsible for fetching information from the database table and transmitting data to the index.html by utilizing json
+
+## OpenCV
+
+The image below shows the robot with an HDMI LCD display in the front portraying the Open CV camera functioning during its face detection phase.
+
+Notice that when the camera detects a frown, the frown face image appears on the screen. 
+
+
+![Face detection image](https://github.com/lisaisfabu/RoboPi/blob/master/emotion-detect/opencv.jpg)
+
+
+## OpenCV Video
+
+The video below provides confirmation that the Open CV system is functioning in conjunction with the main python script "picam.py" 
+
+[![Open CV Video](https://github.com/lisaisfabu/RoboPi/blob/master/emotion-detect/robopivideoimage.PNG)](https://youtu.be/Zjz4lv8vXeo)
