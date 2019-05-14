@@ -6,9 +6,6 @@ import cv2
 import time
 import io
 
-#Python image opener library
-from PIL import Image
-
 #Additional libraries for database logging and buttons
 import RPi.GPIO as GPIO
 import os
