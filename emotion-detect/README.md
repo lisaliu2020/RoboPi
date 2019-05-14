@@ -4,7 +4,7 @@ Using OpenCV and Python Lisa will be creating haarcascades for smile and frown d
 
 Anthony will create the web application for displaying the logged information/variables from the sqlite database table using flask server and google visualization chart.
 
-##Haarcascades
+## Haarcascades
 
 haarcascade_frontalface_default.xml -> frontal face detector *[not mine]*
 
@@ -16,7 +16,7 @@ smile_closed_cascade.xml -> created a smile detector, this detects smiles withou
 
 nohup.out -> output file while training cascades
 
-##Python Files
+## Python Files
 
 picam.py -> python file to be able to collect information from the picamera using our created cascades and two buttons which will then log the information to our database which will be shown on our web application *[look at Web Application section]*
 
@@ -24,7 +24,7 @@ faceDetect_test.py -> python file to test cascades on webcam camera
 
 images.py -> python file to collect negative images, remove the "ugly" images *[look at Data for Training Cascades section]*, and create the bg.txt file
 
-##Data for Training Cascades
+## Data for Training Cascades
 
 data_smiles | data_smiles_closed | frown_data_test -> data for training cascades
 
@@ -32,7 +32,7 @@ neg -> negative images for training
 
 sad | smiles -> positive images for training
 
-ugly -> to remove unnecessary images from negative images	
+ugly -> to remove unnecessary images from negative images
 
 bg.txt -> negative images text file
 
@@ -46,12 +46,10 @@ smile.jpg | smile3.jpg | smile5050.jpg -> smile positive images to train with
 
 smile_emoji.jpg | frown_emoji.jpg -> smile emoji will show when the button is clicked to show that
 
-#Web Application
+# Web Application
 
-application/log -> contains the database file for the sqlite table 
+application/log -> contains the database file for the sqlite table
 
 application/templates -> contains the index.html file for web server. This is the webserver directory index
 
 application/roboServer.py -> This is the flask webserver file that is responsible for fetching information from the database table and transmitting data to the index.html by utilizing json
-
-
