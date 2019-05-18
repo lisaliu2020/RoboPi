@@ -1,5 +1,3 @@
-Edit this README.md file when the application is complete!!!
-
 # Web Application Setup
 
 A Flask web server application was established in which a google visualization table was displayed. The google
