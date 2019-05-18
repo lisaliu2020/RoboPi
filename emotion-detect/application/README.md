@@ -6,6 +6,8 @@ A Flask web server application was established in which a google visualization t
 visualization table contains the content from the sqlite database table that is populated by the variables from 
 the "picam.py" python script file from the "emotion-detect" directory.
 
+## Tutorial:
+
 Step 1:
 
 (In the application directory):
